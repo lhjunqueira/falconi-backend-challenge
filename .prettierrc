@@ -1,4 +1,15 @@
 {
+  "printWidth": 80,
   "singleQuote": true,
-  "trailingComma": "all"
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "htmlWhitespaceSensitivity": "ignore",
+  "trailingComma": "all",
+  "semi": true,
+  "endOfLine": "lf",
+  "arrowParens": "always",
+  "overrides": [
+    { "files": "*.json", "options": { "parser": "json" } },
+    { "files": "*.jsonc", "options": { "parser": "jsonc" } }
+  ]
 }
