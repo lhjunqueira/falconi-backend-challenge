@@ -41,11 +41,7 @@ export class User extends Entity<UserProps> {
     return this.props.profile;
   }
 
-  softDelete(): void {
-    this.props.deletedAt = new Date();
-  }
-
-  changeIsActive(isActive: boolean): void {
+  toggleIsActive(isActive: boolean): void {
     this.props.isActive = isActive;
   }
 

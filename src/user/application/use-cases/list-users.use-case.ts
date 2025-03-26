@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { FilterUserPaginatedDto } from '../dtos/filter-user-paginated.dto';
 import { User } from '../../domain/user.domain';
-import { UserRepository } from '../../../core/repositories/user.repository';
+import { UserRepository } from '../../infrastructure/repositories/user.repository';
 
 @Injectable()
 export class ListUsersUseCase {

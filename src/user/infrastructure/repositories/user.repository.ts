@@ -1,15 +1,18 @@
-import { BadRequestException, Provider } from '@nestjs/common';
-import { UserRepository } from '../../../core/repositories/user.repository';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
 import { User } from '../../domain/user.domain';
 import { MOCK_USERS } from './users.mock';
 import { FilterUserPaginatedDto } from '../../application/dtos/filter-user-paginated.dto';
+import { Repository } from '../../../core/types/repository';
 
-export class UserRepositoryImpl extends UserRepository {
+@Injectable()
+export class UserRepository implements Repository<User> {
   private _mockedUsers: User[] = MOCK_USERS;
 
   findByEmail(email: string): Promise<User | null> {
-    const user = this._mockedUsers.find((user) => user.getEmail() === email);
+    const user = this._mockedUsers.find(
+      (user) => user.getEmail() === email && !user.isDeleted(),
+    );
     return Promise.resolve(user || null);
   }
 
@@ -25,10 +28,11 @@ export class UserRepositoryImpl extends UserRepository {
       const email = user.getEmail().toLowerCase();
 
       return (
-        firstName.includes(normalizedSearch) ||
-        lastName.includes(normalizedSearch) ||
-        fullName.includes(normalizedSearch) ||
-        email.includes(normalizedSearch)
+        (firstName.includes(normalizedSearch) ||
+          lastName.includes(normalizedSearch) ||
+          fullName.includes(normalizedSearch) ||
+          email.includes(normalizedSearch)) &&
+        !user.isDeleted()
       );
     });
 
@@ -54,8 +58,8 @@ export class UserRepositoryImpl extends UserRepository {
   }
 
   persist(entity: User): Promise<User> {
-    const existingUser = this._mockedUsers.find((user) =>
-      user.getId().equals(entity.getId()),
+    const existingUser = this._mockedUsers.find(
+      (user) => user.getId().equals(entity.getId()) && !user.isDeleted(),
     );
 
     if (existingUser) {
@@ -75,7 +79,9 @@ export class UserRepositoryImpl extends UserRepository {
 
   getById(id: UniqueEntityID): Promise<User> {
     try {
-      const user = this._mockedUsers.find((u) => u.getId().equals(id));
+      const user = this._mockedUsers.find(
+        (u) => u.getId().equals(id) && !u.isDeleted(),
+      );
       if (!user) throw new BadRequestException('User not found');
 
       return Promise.resolve(user);
@@ -86,8 +92,3 @@ export class UserRepositoryImpl extends UserRepository {
     }
   }
 }
-
-export const UserRepositoryProvider: Provider<UserRepository> = {
-  provide: UserRepository,
-  useClass: UserRepositoryImpl,
-};

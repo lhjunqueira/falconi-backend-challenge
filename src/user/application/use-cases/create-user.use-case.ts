@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from '../../../core/repositories/user.repository';
+import { UserRepository } from '../../infrastructure/repositories/user.repository';
 import { User } from '../../domain/user.domain';
 import { CreateUserDto } from '../dtos/create-user.dto';
+import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
 
 @Injectable()
 export class CreateUserUseCase {
@@ -13,7 +14,7 @@ export class CreateUserUseCase {
       lastName: input.lastName,
       email: input.email,
       isActive: true,
-      profileId: input.profileId,
+      profileId: new UniqueEntityID(input.profileId),
     });
 
     return this.userRepository.persist(user);

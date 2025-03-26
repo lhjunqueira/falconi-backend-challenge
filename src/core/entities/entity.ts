@@ -23,4 +23,12 @@ export abstract class Entity<T extends BaseProps> {
   getId(): UniqueEntityID {
     return this._id;
   }
+
+  softDelete(): void {
+    this.props.deletedAt = new Date();
+  }
+
+  isDeleted(): boolean {
+    return this.props.deletedAt !== null;
+  }
 }
