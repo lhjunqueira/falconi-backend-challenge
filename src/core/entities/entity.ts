@@ -20,7 +20,7 @@ export abstract class Entity<T extends BaseProps> {
     } as T;
   }
 
-  get id(): UniqueEntityID {
+  getId(): UniqueEntityID {
     return this._id;
   }
 }
