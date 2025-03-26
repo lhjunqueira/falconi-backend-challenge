@@ -7,8 +7,6 @@ export class GetProfilesUseCase {
   constructor(private readonly profileRepository: ProfileRepository) {}
 
   async execute(): Promise<Profile[]> {
-    const profiles = await this.profileRepository.getAll();
-
-    return profiles;
+    return this.profileRepository.getAll();
   }
 }

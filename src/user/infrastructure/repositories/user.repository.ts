@@ -52,7 +52,8 @@ export class UserRepository implements Repository<User> {
 
     if (index === -1) return Promise.resolve(null);
 
-    this._mockedUsers[index].softDelete();
+    if (!this._mockedUsers[index].isDeleted())
+      this._mockedUsers[index].softDelete();
 
     return Promise.resolve(this._mockedUsers[index]);
   }
