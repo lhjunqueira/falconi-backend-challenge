@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString, Max } from 'class-validator';
 
 export class FilterUserPaginatedDto {
   @ApiProperty({
@@ -29,5 +29,6 @@ export class FilterUserPaginatedDto {
   @IsOptional()
   @Transform(({ value }) => Number(value))
   @IsInt()
+  @Max(50)
   limit?: number;
 }

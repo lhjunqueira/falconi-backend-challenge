@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './presentation/controllers/user.controller';
 import { CreateUserUseCase } from './application/use-cases/create-user.use-case';
-import { GetUserByIdUseCase } from './application/use-cases/get-user-by-id.use-case';
+import { FindUserByIdUseCase } from './application/use-cases/find-user-by-id.use-case';
 import { ListUsersUseCase } from './application/use-cases/list-users.use-case';
 import { ToggleUserActiveStatusUseCase } from './application/use-cases/toggle-active.use-case';
 import { DeleteUserUseCase } from './application/use-cases/delete-user.use-case';
@@ -13,7 +13,7 @@ import { ProfileController } from './presentation/controllers/profile.controller
 const USER_USE_CASES = [
   ToggleUserActiveStatusUseCase,
   CreateUserUseCase,
-  GetUserByIdUseCase,
+  FindUserByIdUseCase,
   ListUsersUseCase,
   DeleteUserUseCase,
 ];

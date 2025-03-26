@@ -45,12 +45,12 @@ export class UserRepository implements Repository<User> {
     return Promise.resolve(paginatedUsers);
   }
 
-  delete(user: User): Promise<User> {
+  delete(user: User): Promise<User | null> {
     const index = this._mockedUsers.findIndex((u) =>
       u.getId().equals(user.getId()),
     );
 
-    if (index === -1) throw new BadRequestException('User not found');
+    if (index === -1) return Promise.resolve(null);
 
     this._mockedUsers[index].softDelete();
 
@@ -77,18 +77,10 @@ export class UserRepository implements Repository<User> {
     return Promise.resolve(entity);
   }
 
-  getById(id: UniqueEntityID): Promise<User> {
-    try {
-      const user = this._mockedUsers.find(
-        (u) => u.getId().equals(id) && !u.isDeleted(),
-      );
-      if (!user) throw new BadRequestException('User not found');
-
-      return Promise.resolve(user);
-    } catch (error) {
-      return Promise.reject(
-        error instanceof Error ? error : new Error(String(error)),
-      );
-    }
+  findById(id: UniqueEntityID): Promise<User | null> {
+    return Promise.resolve(
+      this._mockedUsers.find((u) => u.getId().equals(id) && !u.isDeleted()) ??
+        null,
+    );
   }
 }
