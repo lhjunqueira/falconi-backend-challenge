@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
 import { User } from '../../domain/user.domain';
 import { MOCK_USERS } from './users.mock';

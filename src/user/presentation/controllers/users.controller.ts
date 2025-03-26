@@ -19,9 +19,9 @@ import { FilterUserPaginatedDto } from '../../application/dtos/filter-user-pagin
 import { ToggleActiveUserDto } from '../../application/dtos/toggle-active-user.dto';
 import { DeleteUserUseCase } from '../../application/use-cases/delete-user.use-case';
 
-@Controller('user')
-@ApiTags('user')
-export class UserController {
+@Controller('users')
+@ApiTags('users')
+export class UsersController {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly getUserByIdUseCase: FindUserByIdUseCase,
