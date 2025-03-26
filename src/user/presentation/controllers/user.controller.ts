@@ -28,12 +28,12 @@ export class UserController {
     private readonly listUsersUseCase: ListUsersUseCase,
   ) {}
 
-  @Get('by-id/:id')
+  @Get(':id')
   getUserById(@Param('id') id: string) {
     return this.getUserByIdUseCase.execute(new UniqueEntityID(id));
   }
 
-  @Get('list/filter-paginated')
+  @Get()
   filterPaginated(@Query() dto: FilterUserPaginatedDto) {
     return this.listUsersUseCase.execute(dto);
   }

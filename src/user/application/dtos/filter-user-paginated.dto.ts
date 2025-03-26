@@ -19,7 +19,7 @@ export class FilterUserPaginatedDto {
   @IsOptional()
   @Transform(({ value }) => Number(value))
   @IsInt()
-  page?: number; // Defina um valor padrão se desejar
+  page?: number;
 
   @ApiProperty({
     required: false,
@@ -29,5 +29,5 @@ export class FilterUserPaginatedDto {
   @IsOptional()
   @Transform(({ value }) => Number(value))
   @IsInt()
-  limit?: number; // Defina um valor padrão se desejar
+  limit?: number;
 }
