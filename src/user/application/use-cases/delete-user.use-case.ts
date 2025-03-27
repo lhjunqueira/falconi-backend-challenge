@@ -1,19 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
-import { FindUserByIdUseCase } from './find-user-by-id.use-case';
-import { User } from '../../domain/user.domain';
+import { UserModel } from '../../presentation/mappers/models/user.model';
 
 @Injectable()
 export class DeleteUserUseCase {
-  constructor(
-    private readonly findUser: FindUserByIdUseCase,
-    private readonly userRepository: UserRepository,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
-  async execute(id: UniqueEntityID): Promise<User | null> {
-    const user = await this.findUser.execute(id);
+  async execute(id: UniqueEntityID): Promise<UserModel | null> {
+    const user = await this.userRepository.findById(id);
+    if (!user) return null;
 
-    return this.userRepository.delete(user);
+    return this.userRepository
+      .delete(user)
+      .then((u) => (u ? u.toModel() : null));
   }
 }

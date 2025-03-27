@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Profile } from '../../domain/profile.domain';
-import { MOCK_PROFILES } from './profiles.mock';
+import { MOCK_PROFILES } from './mocks/profiles.mock';
 import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
 
 @Injectable()

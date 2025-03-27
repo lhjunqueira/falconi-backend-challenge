@@ -1,5 +1,5 @@
-import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
-import { Profile } from '../../domain/profile.domain';
+import { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
+import { Profile } from '../../../domain/profile.domain';
 
 export const MOCK_PROFILE_ID_1 = new UniqueEntityID(
   '7e4e1613-0435-4f2d-a04e-dfd30510fdfb',

@@ -3,12 +3,13 @@ import { UserRepository } from '../../infrastructure/repositories/user.repositor
 import { User } from '../../domain/user.domain';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
+import { UserModel } from '../../presentation/mappers/models/user.model';
 
 @Injectable()
 export class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async execute(input: CreateUserDto): Promise<User> {
+  async execute(input: CreateUserDto): Promise<UserModel> {
     const user = new User({
       firstName: input.firstName,
       lastName: input.lastName,
@@ -21,6 +22,6 @@ export class CreateUserUseCase {
     if (existingUser)
       throw new ConflictException('User with this email already exists');
 
-    return this.userRepository.persist(user);
+    return this.userRepository.persist(user).then((user) => user.toModel());
   }
 }

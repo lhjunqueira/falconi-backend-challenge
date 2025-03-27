@@ -13,6 +13,14 @@ export class FilterUserPaginatedDto {
 
   @ApiProperty({
     required: false,
+    description: 'Filter by active status',
+  })
+  @IsOptional()
+  @IsString()
+  profileId?: string;
+
+  @ApiProperty({
+    required: false,
     description: 'Page number for pagination',
     default: 0,
   })

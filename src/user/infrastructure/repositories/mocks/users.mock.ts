@@ -1,5 +1,5 @@
-import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
-import { User } from '../../domain/user.domain';
+import { UniqueEntityID } from '../../../../core/entities/unique-entity-id';
+import { User } from '../../../domain/user.domain';
 import {
   MOCK_PROFILE_ID_1,
   MOCK_PROFILE_ID_2,

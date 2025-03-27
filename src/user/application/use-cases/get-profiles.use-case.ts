@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { ProfileRepository } from '../../infrastructure/repositories/profile.repository';
-import { Profile } from '../../domain/profile.domain';
+import { ProfileModel } from '../../presentation/mappers/models/profile.model';
 
 @Injectable()
 export class GetProfilesUseCase {
   constructor(private readonly profileRepository: ProfileRepository) {}
 
-  async execute(): Promise<Profile[]> {
-    return this.profileRepository.getAll();
+  async execute(): Promise<ProfileModel[]> {
+    return this.profileRepository
+      .getAll()
+      .then((profiles) => profiles.map((profile) => profile.toModel()));
   }
 }

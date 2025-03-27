@@ -18,6 +18,7 @@ import { ListUsersUseCase } from '../../application/use-cases/list-users.use-cas
 import { FilterUserPaginatedDto } from '../../application/dtos/filter-user-paginated.dto';
 import { ToggleActiveUserDto } from '../../application/dtos/toggle-active-user.dto';
 import { DeleteUserUseCase } from '../../application/use-cases/delete-user.use-case';
+import { UserModel } from '../mappers/models/user.model';
 
 @Controller('users')
 @ApiTags('users')
@@ -31,30 +32,35 @@ export class UsersController {
   ) {}
 
   @Get(':id')
-  getUserById(@Param('id') id: string) {
+  getUserById(@Param('id') id: string): Promise<UserModel> {
     return this.getUserByIdUseCase.execute(new UniqueEntityID(id));
   }
 
   @Get()
-  filterPaginated(@Query() dto: FilterUserPaginatedDto) {
+  filterPaginated(@Query() dto: FilterUserPaginatedDto): Promise<UserModel[]> {
     return this.listUsersUseCase.execute(dto);
   }
 
   @Post()
-  createUser(@Body() payload: CreateUserDto) {
+  createUser(@Body() payload: CreateUserDto): Promise<UserModel> {
     return this.createUserUseCase.execute(payload);
   }
 
   @Patch(':id/active')
-  toggleActive(@Param('id') id: string, @Body() dto: ToggleActiveUserDto) {
+  toggleActive(
+    @Param('id') id: string,
+    @Body() dto: ToggleActiveUserDto,
+  ): Promise<UserModel> {
     return this.toggleActiveUseCase.execute(
       new UniqueEntityID(id),
       dto.isActive,
     );
   }
 
+  // TODO: fazer o Put aqui
+
   @Delete(':id')
-  deleteUser(@Param('id') id: string) {
+  deleteUser(@Param('id') id: string): Promise<UserModel | null> {
     return this.deleteUserUseCase.execute(new UniqueEntityID(id));
   }
 }

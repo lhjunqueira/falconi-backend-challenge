@@ -8,13 +8,20 @@ async function bootstrap() {
   const logger = new Logger('main');
   const port = process.env.PORT || 3000;
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      whitelist: true,
-      forbidNonWhitelisted: true,
-    }),
-  );
+  app
+    .useGlobalPipes(
+      new ValidationPipe({
+        transform: true,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+      }),
+    )
+    .enableCors({
+      origin: 'http://localhost:4200',
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      allowedHeaders: 'Content-Type,Authorization',
+      credentials: true,
+    });
 
   const config = new DocumentBuilder()
     .setTitle('API Documentation')

@@ -1,6 +1,8 @@
 import { BaseProps } from '../../core/entities/base-props';
 import { Entity } from '../../core/entities/entity';
 import { UniqueEntityID } from '../../core/entities/unique-entity-id';
+import { UserModel } from '../presentation/mappers/models/user.model';
+import { UserMapper } from '../presentation/mappers/user.mapper';
 import { Profile } from './profile.domain';
 
 export interface UserProps extends BaseProps {
@@ -65,5 +67,9 @@ export class User extends Entity<UserProps> {
     this.props.isActive = isActive;
 
     this.props.updatedAt = new Date();
+  }
+
+  toModel(): UserModel {
+    return UserMapper.toModel(this);
   }
 }

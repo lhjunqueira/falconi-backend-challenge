@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
 import { User } from '../../domain/user.domain';
-import { MOCK_USERS } from './users.mock';
+import { MOCK_USERS } from './mocks/users.mock';
 import { FilterUserPaginatedDto } from '../../application/dtos/filter-user-paginated.dto';
 import { Repository } from '../../../core/types/repository';
 
@@ -17,26 +17,34 @@ export class UserRepository implements Repository<User> {
   }
 
   filterPaginated(dto: FilterUserPaginatedDto): Promise<User[]> {
-    const { search = '', page = 0, limit = 10 } = dto;
-
-    const normalizedSearch = search.toLowerCase();
+    const { search, profileId, page = 0, limit = 10 } = dto;
 
     const filteredUsers = this._mockedUsers.filter((user) => {
-      const firstName = user.getFirstName().toLowerCase();
-      const lastName = user.getLastName().toLowerCase();
-      const fullName = user.getFullName().toLowerCase();
-      const email = user.getEmail().toLowerCase();
+      const matchesSearch = search
+        ? (() => {
+            const normalizedSearch = search.toLowerCase();
+            const firstName = user.getFirstName().toLowerCase();
+            const lastName = user.getLastName().toLowerCase();
+            const fullName = user.getFullName().toLowerCase();
+            const email = user.getEmail().toLowerCase();
 
-      return (
-        (firstName.includes(normalizedSearch) ||
-          lastName.includes(normalizedSearch) ||
-          fullName.includes(normalizedSearch) ||
-          email.includes(normalizedSearch)) &&
-        !user.isDeleted()
-      );
+            return (
+              firstName.includes(normalizedSearch) ||
+              lastName.includes(normalizedSearch) ||
+              fullName.includes(normalizedSearch) ||
+              email.includes(normalizedSearch)
+            );
+          })()
+        : true;
+
+      const matchesProfileId = profileId
+        ? user.getProfileId().toString() === profileId
+        : true;
+
+      return matchesSearch && matchesProfileId && !user.isDeleted();
     });
 
-    const startIndex = page * limit;
+    const startIndex = page > 0 ? page * limit : 0;
     const paginatedUsers =
       limit > 0
         ? filteredUsers.slice(startIndex, startIndex + limit)
