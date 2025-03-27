@@ -4,6 +4,7 @@ import { User } from '../../domain/user.domain';
 import { MOCK_USERS } from './mocks/users.mock';
 import { FilterUserPaginatedDto } from '../../application/dtos/filter-user-paginated.dto';
 import { Repository } from '../../../core/types/repository';
+import { ListPaginated } from '../../../core/types/list-paginated';
 
 @Injectable()
 export class UserRepository implements Repository<User> {
@@ -16,7 +17,7 @@ export class UserRepository implements Repository<User> {
     return Promise.resolve(user || null);
   }
 
-  filterPaginated(dto: FilterUserPaginatedDto): Promise<User[]> {
+  filterPaginated(dto: FilterUserPaginatedDto): Promise<ListPaginated<User>> {
     const { search, profileId, page = 0, limit = 10 } = dto;
 
     const filteredUsers = this._mockedUsers.filter((user) => {
@@ -50,7 +51,9 @@ export class UserRepository implements Repository<User> {
         ? filteredUsers.slice(startIndex, startIndex + limit)
         : filteredUsers;
 
-    return Promise.resolve(paginatedUsers);
+    return Promise.resolve(
+      new ListPaginated<User>(paginatedUsers, filteredUsers.length),
+    );
   }
 
   delete(user: User): Promise<User | null> {
@@ -72,7 +75,7 @@ export class UserRepository implements Repository<User> {
     );
 
     if (existingUser) {
-      existingUser.updateUser({
+      existingUser.update({
         firstName: entity.getFirstName(),
         lastName: entity.getLastName(),
         email: entity.getEmail(),
@@ -80,7 +83,7 @@ export class UserRepository implements Repository<User> {
         isActive: entity.getIsActive(),
       });
     } else {
-      this._mockedUsers.push(entity);
+      this._mockedUsers.unshift(entity);
     }
 
     return Promise.resolve(entity);

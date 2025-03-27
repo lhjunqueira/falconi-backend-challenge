@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
 import { User } from '../../domain/user.domain';
-import { CreateUserDto } from '../dtos/create-user.dto';
+import { CreateUpdateUserDto } from '../dtos/create-update-user.dto';
 import { UniqueEntityID } from '../../../core/entities/unique-entity-id';
 import { UserModel } from '../../presentation/mappers/models/user.model';
 
@@ -9,12 +9,12 @@ import { UserModel } from '../../presentation/mappers/models/user.model';
 export class CreateUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async execute(input: CreateUserDto): Promise<UserModel> {
+  async execute(input: CreateUpdateUserDto): Promise<UserModel> {
     const user = new User({
       firstName: input.firstName,
       lastName: input.lastName,
       email: input.email,
-      isActive: true,
+      isActive: input.isActive,
       profileId: new UniqueEntityID(input.profileId),
     });
 

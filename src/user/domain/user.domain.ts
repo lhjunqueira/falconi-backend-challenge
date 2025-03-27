@@ -47,7 +47,7 @@ export class User extends Entity<UserProps> {
     this.props.isActive = isActive;
   }
 
-  updateUser({
+  update({
     firstName,
     lastName,
     email,

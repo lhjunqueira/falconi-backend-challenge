@@ -9,6 +9,7 @@ import { UserRepository } from './infrastructure/repositories/user.repository';
 import { GetProfilesUseCase } from './application/use-cases/get-profiles.use-case';
 import { ProfileRepository } from './infrastructure/repositories/profile.repository';
 import { ProfilesController } from './presentation/controllers/profiles.controller';
+import { UpdateUserUseCase } from './application/use-cases/update-user.use-case';
 
 const USER_USE_CASES = [
   ToggleUserActiveStatusUseCase,
@@ -16,6 +17,7 @@ const USER_USE_CASES = [
   FindUserByIdUseCase,
   ListUsersUseCase,
   DeleteUserUseCase,
+  UpdateUserUseCase,
 ];
 
 const PROFILE_USE_CASES = [GetProfilesUseCase];
