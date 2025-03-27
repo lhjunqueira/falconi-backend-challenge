@@ -1,98 +1,94 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Backend NestJS com Docker
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 📌 Visão Geral
+Este projeto é um backend desenvolvido em **NestJS**, configurado para rodar dentro de um contêiner **Docker**. Ele implementa uma API RESTful para gerenciamento de usuários e perfis, com dados mockados em memória. O projeto foi desenvolvido como parte de um desafio técnico Fullstack.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🛠️ Tecnologias Utilizadas
+- **NestJS**
+- **Docker**
+- **TypeScript**
+- **Node.js 18.x**
+- **UUID** para identificação única
+- **PNPM**
 
-## Description
+## 🚀 Como rodar a aplicação
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### 1️⃣ **Pré-requisitos**
+Certifique-se de ter instalado:
+- [Docker](https://www.docker.com/)
 
-## Project setup
+### 2️⃣ **Executar com Docker**
 
-```bash
-$ pnpm install
+Para rodar a aplicação em um contêiner Docker, basta executar os seguintes comandos:
+
+Executar os três comandos para construir a imagem e subir os contêineres:
+
+```sh
+docker-compose up --build
 ```
 
-## Compile and run the project
+Para apenas construir a imagem Docker:
 
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+```sh
+docker-compose build
 ```
 
-## Run tests
+Subir os contêineres:
 
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+```sh
+docker-compose up
 ```
 
-## Deployment
+A aplicação estará disponível em `http://localhost:3000`.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### 3️⃣ **Executar sem Docker (não recomendado)**
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Caso prefira rodar a aplicação localmente sem o Docker, execute:
 
-```bash
-$ pnpm install -g mau
-$ mau deploy
+```sh
+pnpm install
+pnpm run start
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 🎯 Funcionalidades Implementadas
+- **Gerenciamento de Usuários**: Criar, editar, remover e listar usuários.
+- **Ativar e desativar usuários**.
+- **Buscar um usuário pelo ID**.
+- **Filtrar usuários por perfil**.
 
-## Resources
+## 🤔 Explicação das Decisões Tomadas
 
-Check out a few resources that may come in handy when working with NestJS:
+### 🟢 **Uso do NestJS**
+Optamos por usar **NestJS** por ser um framework altamente escalável e organizado para a criação de aplicações back-end em Node.js. Ele proporciona uma estrutura robusta com o uso de módulos e injeção de dependências.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 🟢 **Uso do Docker**
+O **Docker** foi utilizado para garantir que a aplicação funcione da mesma forma em qualquer ambiente, sem se preocupar com configurações específicas do sistema ou dependências. Isso também facilita o processo de deploy, padronizando o ambiente de desenvolvimento e produção.
 
-## Support
+### 🟢 **Uso do UUID**
+Optamos pelo uso de **UUID completo** para garantir a unicidade e escalabilidade das identificações dos usuários, considerando que a performance não será impactada significativamente.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 🟢 **Uso de dados mockados**
+A aplicação utiliza dados **mockados em memória** para fins de desenvolvimento e testes. Isso permite testar a funcionalidade da API sem a necessidade de um banco de dados real.
 
-## Stay in touch
+### 🟢 **Uso do TypeScript**
+O projeto foi desenvolvido em **TypeScript** para garantir tipagem forte, o que facilita a manutenção do código e melhora a experiência do desenvolvedor.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 🟢 **Uso de Docker Compose**
+O **Docker Compose** foi configurado para orquestrar os contêineres da aplicação, simplificando o processo de construção e execução do ambiente de desenvolvimento.
 
-## License
+## ⚡ Possíveis Pontos de Melhoria ou Sugestões de Evolução
+- **Persistência de dados**: Integrar um banco de dados real (como PostgreSQL ou MongoDB) para substituir os dados mockados.
+- **Autenticação e Autorização**: Implementar um sistema de autenticação (JWT, por exemplo) para garantir que apenas usuários autenticados possam acessar ou modificar os dados.
+- **Testes automatizados**: Adicionar testes unitários e de integração usando ferramentas como **Jest** ou **Supertest** para garantir a qualidade do código.
+- **Validação de dados**: Adicionar validações mais robustas para as entradas da API usando **class-validator**.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## 🛠️ Problemas Conhecidos
+- ⚠️ **Problema ao rodar o Docker pela primeira vez**: Caso ocorra algum erro durante a execução do Docker pela primeira vez, tente reconstruir a imagem e iniciar os contêineres novamente:
+
+```sh
+docker-compose down
+docker-compose up --build
+```
+
+## 📄 Licença
+Este projeto está sob a licença MIT.
