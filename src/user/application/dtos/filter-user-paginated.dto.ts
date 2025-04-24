@@ -6,6 +6,7 @@ export class FilterUserPaginatedDto {
   @ApiProperty({
     required: false,
     description: 'Search term for filtering users',
+    type: String,
   })
   @IsOptional()
   @IsString()
@@ -13,7 +14,8 @@ export class FilterUserPaginatedDto {
 
   @ApiProperty({
     required: false,
-    description: 'Filter by active status',
+    description: 'Filter by profile ID',
+    type: String,
   })
   @IsOptional()
   @IsString()
@@ -23,6 +25,7 @@ export class FilterUserPaginatedDto {
     required: false,
     description: 'Page number for pagination',
     default: 0,
+    type: Number,
   })
   @IsOptional()
   @Transform(({ value }) => Number(value))
@@ -33,6 +36,8 @@ export class FilterUserPaginatedDto {
     required: false,
     description: 'Number of items per page',
     default: 10,
+    maximum: 50,
+    type: Number,
   })
   @IsOptional()
   @Transform(({ value }) => Number(value))
